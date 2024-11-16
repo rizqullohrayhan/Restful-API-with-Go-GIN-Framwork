@@ -93,6 +93,7 @@ func getAlbums(c *gin.Context)  {
 	c.JSON(http.StatusOK, albums)
 }
 
+// getAlbumByID get specified album data by ID
 func getAlbumByID(c *gin.Context)  {
 	if !checkDBConnection(c) {
 		return
@@ -108,6 +109,9 @@ func getAlbumByID(c *gin.Context)  {
 	c.JSON(http.StatusOK, album)
 }
 
+// make validation for album manajemens
+// return true if pass
+// return false if invalid
 func dataAlbumValidation(album album, c *gin.Context) bool {
 	if album.Artist == "" || album.Title == "" {
         c.JSON(http.StatusBadRequest, gin.H{"error": "Title and Artist are required"})
@@ -155,6 +159,7 @@ func addAlbum(c *gin.Context)  {
 	c.JSON(http.StatusOK, gin.H{"message": "Album berhasil ditambahkan", "id": lastInsertID})
 }
 
+// modify data album
 func editAlbum(c *gin.Context)  {
 	if !checkDBConnection(c) {
 		return
@@ -185,6 +190,7 @@ func editAlbum(c *gin.Context)  {
 	c.JSON(http.StatusOK, gin.H{"message": "Album succesfully edited!", "rows affected": rowsAffacted})
 }
 
+// delete data album
 func destroyAlbum(c *gin.Context) {
 	if !checkDBConnection(c) {
 		return
